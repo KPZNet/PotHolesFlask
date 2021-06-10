@@ -3,7 +3,7 @@ Routes and views for the flask application.
 """
 
 from datetime import datetime
-from flask import render_template
+from flask import render_template, request
 from PotHolesFlask import app
 
 @app.route('/')
@@ -25,6 +25,35 @@ def contact():
         year=datetime.now().year,
         message='Your contact page.'
     )
+
+# A decorator used to tell the application
+# which URL is associated function
+@app.route('/KFormOne', methods =["GET", "POST"])
+def KFormOne():
+    if request.method == "POST":
+       # getting input with name = fname in HTML form
+       first_name = request.form.get("Name")
+       # getting input with name = lname in HTML form
+       last_name = request.form.get("City")
+       return "Your name is "+first_name + last_name
+    return render_template("KFormOne.html")
+
+
+@app.route('/KFormOneX')
+def KFormOneX():
+    """Renders the contact page."""
+    return render_template(
+        'KFormOne.html'
+    )
+
+@app.route ( '/data/', methods=['POST', 'GET'] )
+def data() :
+    if request.method == 'GET' :
+        return f"The URL /data is accessed directly. Try going to '/form' to submit form"
+    if request.method == 'POST' :
+        form_data = request.form
+        return render_template ( 'data.html', form_data=form_data )
+
 
 @app.route('/about')
 def about():
