@@ -31,13 +31,22 @@ def contact():
 @app.route('/KFormOne', methods =["GET", "POST"])
 def KFormOne():
     if request.method == "POST":
-       # getting input with name = fname in HTML form
        first_name = request.form.get("Name")
-       # getting input with name = lname in HTML form
        last_name = request.form.get("City")
        return "Your name is "+first_name + last_name
     return render_template("KFormOne.html")
 
+# A decorator used to tell the application
+# which URL is associated function
+@app.route('/KFormOneJ', methods =["GET", "POST"])
+def KFormOneJ():
+    if request.method == "POST":
+
+       first_name = "ken" #request.form.get("Name")
+
+       last_name = "Ceg" #request.form.get("City")
+       return "Your name is "+first_name + last_name
+    return render_template("KFormOneJ.html")
 
 @app.route('/KFormOneX')
 def KFormOneX():
